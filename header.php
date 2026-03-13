@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</a>
 
 					<a class="babybloom-outline-button babybloom-header__account" href="<?php echo esc_url( babybloom_get_account_url() ); ?>">
-						<?php esc_html_e( 'Sign In / Register', 'babybloom' ); ?>
+						<?php echo esc_html( babybloom_get_account_button_label() ); ?>
 					</a>
 				</div>
 			</div>

@@ -198,6 +198,34 @@ function babybloom_get_cart_url() {
 }
 
 /**
+ * Determine whether account registration is enabled on the My Account page.
+ *
+ * @return bool
+ */
+function babybloom_myaccount_registration_enabled() {
+	if ( ! function_exists( 'wc_get_page_id' ) ) {
+		return false;
+	}
+
+	return 'yes' === get_option( 'woocommerce_enable_myaccount_registration', 'no' );
+}
+
+/**
+ * Return the account button label that matches the current WooCommerce flow.
+ *
+ * @return string
+ */
+function babybloom_get_account_button_label() {
+	if ( is_user_logged_in() ) {
+		return __( 'My Account', 'babybloom' );
+	}
+
+	return babybloom_myaccount_registration_enabled()
+		? __( 'Sign In / Register', 'babybloom' )
+		: __( 'Sign In', 'babybloom' );
+}
+
+/**
  * Return a page URL by path with fallback.
  *
  * @param string $path     Page path.
@@ -516,12 +544,17 @@ function babybloom_account_auth_intro_open() {
 	if ( is_user_logged_in() || ! function_exists( 'is_account_page' ) || ! is_account_page() ) {
 		return;
 	}
+
+	$registration_enabled = babybloom_myaccount_registration_enabled();
+	$eyebrow              = $registration_enabled ? __( 'Welcome to BabyBloom', 'babybloom' ) : __( 'Welcome back to BabyBloom', 'babybloom' );
+	$heading              = $registration_enabled ? __( 'Sign in or create an account for a softer, faster shopping experience', 'babybloom' ) : __( 'Sign in for a softer, faster shopping experience', 'babybloom' );
+	$description          = $registration_enabled ? __( 'Create an account to track orders, save your details for quicker checkout, and keep your family favorites in one calm, easy-to-reach place.', 'babybloom' ) : __( 'Manage orders, save your details for quicker checkout, and keep your family favorites in one calm, easy-to-reach place.', 'babybloom' );
 	?>
-	<section class="babybloom-auth-shell" aria-label="<?php esc_attr_e( 'Account access', 'babybloom' ); ?>">
+	<section class="babybloom-auth-shell <?php echo esc_attr( $registration_enabled ? 'is-register-enabled' : 'is-login-only' ); ?>" aria-label="<?php esc_attr_e( 'Account access', 'babybloom' ); ?>">
 		<div class="babybloom-auth-intro">
-			<span class="babybloom-eyebrow"><?php esc_html_e( 'Welcome to BabyBloom', 'babybloom' ); ?></span>
-			<h2><?php esc_html_e( 'Sign in for a softer, faster shopping experience', 'babybloom' ); ?></h2>
-			<p><?php esc_html_e( 'Manage orders, save your details for quicker checkout, and keep your family favorites in one calm, easy-to-reach place.', 'babybloom' ); ?></p>
+			<span class="babybloom-eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+			<h2><?php echo esc_html( $heading ); ?></h2>
+			<p><?php echo esc_html( $description ); ?></p>
 
 			<div class="babybloom-auth-benefits">
 				<div class="babybloom-auth-benefit">

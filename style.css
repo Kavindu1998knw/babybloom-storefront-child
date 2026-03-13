@@ -210,10 +210,14 @@ button {
 }
 
 .site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: clip;
 }
 
 .site-content {
+  flex: 1 0 auto;
   padding-top: 0;
 }
 
@@ -812,6 +816,7 @@ button {
 }
 
 .babybloom-footer {
+  margin-top: auto;
   padding: 0 0 2rem;
 }
 
@@ -897,13 +902,54 @@ button {
   padding-bottom: 2rem;
 }
 
+.page:not(.home) .site-content .col-full,
+.blog .site-content .col-full,
+.archive .site-content .col-full,
+.search .site-content .col-full,
+.woocommerce-page .site-content .col-full,
+.single-product .site-content .col-full {
+  width: min(calc(100% - 2rem), var(--bb-container));
+  margin: 0 auto;
+  padding: 0;
+}
+
+.page:not(.home) .content-area,
+.blog .content-area,
+.archive .content-area,
+.search .content-area,
+.woocommerce-page .content-area,
+.single-product .content-area,
 .page:not(.home) .site-main,
 .blog .site-main,
 .archive .site-main,
-.search .site-main {
-  width: min(calc(100% - 2rem), var(--bb-container));
-  margin: 0 auto;
+.search .site-main,
+.woocommerce-page .site-main,
+.single-product .site-main {
+  float: none !important;
+  width: 100% !important;
+  max-width: none;
+  margin: 0 !important;
+}
+
+.page:not(.home) .site-main,
+.blog .site-main,
+.archive .site-main,
+.search .site-main,
+.woocommerce-page .site-main,
+.single-product .site-main {
   padding: 2rem 0 3rem;
+}
+
+.page:not(.home) .widget-area,
+.search .widget-area,
+.woocommerce-page .widget-area,
+.single-product .widget-area {
+  display: none !important;
+}
+
+.page:not(.home) .hentry,
+.woocommerce-page .hentry {
+  margin-bottom: 0;
 }
 
 .page:not(.home) .entry-header,
@@ -917,7 +963,7 @@ button {
 .woocommerce-products-header__title.page-title,
 .woocommerce-page .page-title {
   color: var(--bb-heading);
-  font-family: "Baloo 2", "Trebuchet MS", sans-serif;
+  font-family: "Outfit", "Trebuchet MS", sans-serif;
   font-size: clamp(2rem, 4vw, 3.1rem);
   line-height: 1.05;
 }
@@ -934,13 +980,6 @@ button {
   margin-top: 0;
 }
 
-.woocommerce-page .site-main,
-.woocommerce-page .content-area,
-.single-product .site-main {
-  width: min(calc(100% - 2rem), var(--bb-container));
-  margin: 0 auto;
-  padding: 2rem 0 3rem;
-}
 
 .post-type-archive-product .site-content .col-full,
 .tax-product_cat .site-content .col-full,
@@ -1280,7 +1319,7 @@ button {
 
 .woocommerce div.product .product_title {
   color: var(--bb-heading);
-  font-family: "Baloo 2", "Trebuchet MS", sans-serif;
+  font-family: "Outfit", "Trebuchet MS", sans-serif;
   font-size: clamp(2rem, 4vw, 3.2rem);
 }
 
@@ -1387,6 +1426,15 @@ button {
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   gap: 1.35rem;
   align-items: stretch;
+}
+
+.babybloom-auth-shell.is-login-only {
+  grid-template-columns: minmax(0, 0.98fr) minmax(320px, 0.82fr);
+}
+
+.babybloom-auth-shell.is-login-only .babybloom-auth-panel {
+  width: 100%;
+  max-width: 620px;
 }
 
 .babybloom-auth-intro,
@@ -1886,14 +1934,19 @@ p.no-comments {
 
 @media (max-width: 640px) {
   .babybloom-container,
-  .page:not(.home) .site-main,
-  .blog .site-main,
-  .archive .site-main,
-  .search .site-main,
-  .woocommerce-page .site-main,
-  .woocommerce-page .content-area,
-  .single-product .site-main {
+  .page:not(.home) .site-content .col-full,
+  .blog .site-content .col-full,
+  .archive .site-content .col-full,
+  .search .site-content .col-full,
+  .woocommerce-page .site-content .col-full,
+  .single-product .site-content .col-full {
     width: min(calc(100% - 1.25rem), var(--bb-container));
+  }
+
+  .post-type-archive-product .site-content .col-full,
+  .tax-product_cat .site-content .col-full,
+  .tax-product_tag .site-content .col-full {
+    width: min(calc(100% - 1.25rem), var(--bb-shop-container));
   }
 
   .page:not(.home) .site-main,
