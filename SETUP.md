@@ -63,6 +63,27 @@ babybloom-storefront-child/
 6. In WordPress admin, activate the child theme and repeat the admin setup steps above.
 7. After activation, clear any Hostinger cache, LiteSpeed cache, or plugin cache before reviewing the homepage.
 
+## Git + SSH deployment
+
+If you want to stop replacing files manually in File Manager:
+
+1. Configure SSH key login using `HOSTINGER-SSH-SETUP.md`.
+2. Copy `deploy.config.example.json` to `deploy.config.json`.
+3. Fill in your SSH host, user, port, and remote theme path.
+4. From this theme folder, run:
+
+```powershell
+.\deploy.ps1 "Describe the change"
+```
+
+That script will:
+
+1. stage changes
+2. create a commit
+3. push to GitHub
+4. connect to Hostinger over SSH
+5. run `git pull` in the live theme folder
+
 ## What to replace
 
 - Hero image:

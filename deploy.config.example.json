@@ -1,0 +1,8 @@
+{
+  "sshUser": "u962744879",
+  "sshHost": "157.173.208.27",
+  "sshPort": 65002,
+  "remotePath": "/home/u962744879/domains/babybloomonline.com/public_html/wp-content/themes/babybloom-storefront-child",
+  "gitRemote": "origin",
+  "gitBranch": "main"
+}
