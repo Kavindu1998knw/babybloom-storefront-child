@@ -393,3 +393,66 @@ function babybloom_cart_fragments( $fragments ) {
 	return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'babybloom_cart_fragments' );
+
+/**
+ * Render a branded intro for the WooCommerce login/register screen.
+ */
+function babybloom_account_auth_intro_open() {
+	if ( is_user_logged_in() || ! function_exists( 'is_account_page' ) || ! is_account_page() ) {
+		return;
+	}
+	?>
+	<section class="babybloom-auth-shell" aria-label="<?php esc_attr_e( 'Account access', 'babybloom' ); ?>">
+		<div class="babybloom-auth-intro">
+			<span class="babybloom-eyebrow"><?php esc_html_e( 'Welcome to BabyBloom', 'babybloom' ); ?></span>
+			<h2><?php esc_html_e( 'Sign in for a softer, faster shopping experience', 'babybloom' ); ?></h2>
+			<p><?php esc_html_e( 'Manage orders, save your details for quicker checkout, and keep your family favorites in one calm, easy-to-reach place.', 'babybloom' ); ?></p>
+
+			<div class="babybloom-auth-benefits">
+				<div class="babybloom-auth-benefit">
+					<span class="babybloom-auth-benefit__icon" aria-hidden="true"><?php echo babybloom_get_icon( 'shipping' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					<div>
+						<strong><?php esc_html_e( 'Track every order', 'babybloom' ); ?></strong>
+						<span><?php esc_html_e( 'Check delivery progress and recent purchases at a glance.', 'babybloom' ); ?></span>
+					</div>
+				</div>
+				<div class="babybloom-auth-benefit">
+					<span class="babybloom-auth-benefit__icon" aria-hidden="true"><?php echo babybloom_get_icon( 'gift' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					<div>
+						<strong><?php esc_html_e( 'Save favorites', 'babybloom' ); ?></strong>
+						<span><?php esc_html_e( 'Keep your go-to baby essentials ready for gifting or reordering.', 'babybloom' ); ?></span>
+					</div>
+				</div>
+				<div class="babybloom-auth-benefit">
+					<span class="babybloom-auth-benefit__icon" aria-hidden="true"><?php echo babybloom_get_icon( 'safe' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					<div>
+						<strong><?php esc_html_e( 'Secure account access', 'babybloom' ); ?></strong>
+						<span><?php esc_html_e( 'Manage addresses, billing details, and account preferences securely.', 'babybloom' ); ?></span>
+					</div>
+				</div>
+			</div>
+
+			<a class="babybloom-outline-button" href="<?php echo esc_url( babybloom_get_shop_url() ); ?>">
+				<?php esc_html_e( 'Browse the Shop', 'babybloom' ); ?>
+				<?php echo babybloom_get_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</a>
+		</div>
+
+		<div class="babybloom-auth-panel">
+	<?php
+}
+add_action( 'woocommerce_before_customer_login_form', 'babybloom_account_auth_intro_open', 5 );
+
+/**
+ * Close the branded wrapper for the WooCommerce login/register screen.
+ */
+function babybloom_account_auth_intro_close() {
+	if ( is_user_logged_in() || ! function_exists( 'is_account_page' ) || ! is_account_page() ) {
+		return;
+	}
+	?>
+		</div>
+	</section>
+	<?php
+}
+add_action( 'woocommerce_after_customer_login_form', 'babybloom_account_auth_intro_close', 50 );

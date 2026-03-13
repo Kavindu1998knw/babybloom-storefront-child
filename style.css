@@ -1263,25 +1263,25 @@ button {
 .woocommerce-checkout .col2-set,
 .woocommerce-checkout #order_review_heading,
 .woocommerce-checkout #order_review,
-.woocommerce-account .woocommerce-MyAccount-navigation,
-.woocommerce-account .woocommerce-MyAccount-content {
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation,
+.logged-in.woocommerce-account .woocommerce-MyAccount-content {
   padding: 1.35rem;
   border-radius: var(--bb-radius-lg);
   background: rgba(255, 255, 255, 0.82);
   box-shadow: var(--bb-shadow-soft);
 }
 
-.woocommerce-account .woocommerce-MyAccount-navigation ul {
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.woocommerce-account .woocommerce-MyAccount-navigation ul li + li {
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation ul li + li {
   margin-top: 0.55rem;
 }
 
-.woocommerce-account .woocommerce-MyAccount-navigation ul li a {
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation ul li a {
   display: block;
   padding: 0.8rem 1rem;
   border-radius: 999px;
@@ -1290,27 +1290,27 @@ button {
   font-weight: 600;
 }
 
-.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a,
-.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover,
-.woocommerce-account .woocommerce-MyAccount-navigation ul li a:focus {
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a,
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover,
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation ul li a:focus {
   background: rgba(246, 217, 219, 0.78);
 }
 
-.woocommerce-account .woocommerce-Addresses,
-.woocommerce-account .addresses {
+.logged-in.woocommerce-account .woocommerce-Addresses,
+.logged-in.woocommerce-account .addresses {
   display: grid;
   gap: 1rem;
 }
 
-.woocommerce-account .woocommerce {
+.logged-in.woocommerce-account .woocommerce {
   display: grid;
   grid-template-columns: minmax(240px, 0.34fr) minmax(0, 1fr);
   gap: 1rem 1.25rem;
   align-items: start;
 }
 
-.woocommerce-account .woocommerce::before,
-.woocommerce-account .woocommerce::after,
+.logged-in.woocommerce-account .woocommerce::before,
+.logged-in.woocommerce-account .woocommerce::after,
 .woocommerce-checkout .col2-set::before,
 .woocommerce-checkout .col2-set::after,
 .single-product div.product::before,
@@ -1318,11 +1318,203 @@ button {
   display: none;
 }
 
-.woocommerce-account .woocommerce-MyAccount-navigation,
-.woocommerce-account .woocommerce-MyAccount-content {
+.logged-in.woocommerce-account .woocommerce-MyAccount-navigation,
+.logged-in.woocommerce-account .woocommerce-MyAccount-content {
   width: auto;
   float: none;
   margin: 0;
+}
+
+.woocommerce-account.page:not(.home) .entry-content {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.woocommerce-account .woocommerce {
+  margin: 0;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-notices-wrapper {
+  margin-bottom: 1rem;
+}
+
+.babybloom-auth-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 1.35rem;
+  align-items: stretch;
+}
+
+.babybloom-auth-intro,
+.babybloom-auth-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.35rem, 3vw, 2.2rem);
+  border-radius: calc(var(--bb-radius-lg) + 4px);
+  box-shadow: var(--bb-shadow-soft);
+}
+
+.babybloom-auth-intro {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.52), transparent 30%),
+    linear-gradient(135deg, rgba(242, 217, 220, 0.88) 0%, rgba(243, 220, 203, 0.9) 52%, rgba(220, 235, 227, 0.82) 100%);
+}
+
+.babybloom-auth-intro::after {
+  content: "";
+  position: absolute;
+  right: -36px;
+  bottom: -52px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.babybloom-auth-intro > * {
+  position: relative;
+  z-index: 1;
+}
+
+.babybloom-auth-intro h2 {
+  margin: 0.7rem 0 0;
+  color: var(--bb-heading);
+  font-family: "Outfit", "Trebuchet MS", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  max-width: 11ch;
+}
+
+.babybloom-auth-intro p {
+  max-width: 46ch;
+  margin: 0.95rem 0 0;
+  color: var(--bb-text-soft);
+}
+
+.babybloom-auth-benefits {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.4rem 0 1.6rem;
+}
+
+.babybloom-auth-benefit {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  padding: 0.95rem 1rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.babybloom-auth-benefit__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--bb-heading);
+}
+
+.babybloom-auth-benefit strong {
+  display: block;
+  color: var(--bb-heading);
+  font-weight: 700;
+}
+
+.babybloom-auth-benefit span {
+  display: block;
+  color: var(--bb-text-soft);
+  font-size: 0.95rem;
+}
+
+.babybloom-auth-panel {
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.woocommerce-account:not(.logged-in) #customer_login {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.woocommerce-account:not(.logged-in) #customer_login::before,
+.woocommerce-account:not(.logged-in) #customer_login::after {
+  display: none;
+}
+
+.woocommerce-account:not(.logged-in) #customer_login .u-column1,
+.woocommerce-account:not(.logged-in) #customer_login .u-column2,
+.woocommerce-account:not(.logged-in) #customer_login .col-1,
+.woocommerce-account:not(.logged-in) #customer_login .col-2 {
+  float: none;
+  width: auto;
+  margin: 0;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form.login,
+.woocommerce-account:not(.logged-in) .woocommerce form.register {
+  height: 100%;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(83, 70, 69, 0.08);
+  border-radius: calc(var(--bb-radius-md) + 2px);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form.login > h2,
+.woocommerce-account:not(.logged-in) .woocommerce form.register > h2 {
+  margin: 0 0 0.4rem;
+  color: var(--bb-heading);
+  font-family: "Outfit", "Trebuchet MS", sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: -0.03em;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form .form-row {
+  margin-bottom: 0.85rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form label {
+  color: var(--bb-heading);
+  font-weight: 600;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-form-login__rememberme {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-form-login__rememberme input {
+  margin: 0;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-LostPassword,
+.woocommerce-account:not(.logged-in) .lost_password {
+  margin: 0.75rem 0 0;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-privacy-policy-text,
+.woocommerce-account:not(.logged-in) .woocommerce-form-login .woocommerce-LostPassword,
+.woocommerce-account:not(.logged-in) .woocommerce-form-login .lost_password {
+  color: var(--bb-text-soft);
+  font-size: 0.94rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-form-login .button,
+.woocommerce-account:not(.logged-in) .woocommerce-form-register .button,
+.woocommerce-account:not(.logged-in) form.login .button,
+.woocommerce-account:not(.logged-in) form.register .button {
+  width: 100%;
+  margin-top: 0.4rem;
 }
 
 .woocommerce-checkout .col2-set {
@@ -1494,7 +1686,7 @@ p.no-comments {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .woocommerce-account .woocommerce,
+  .logged-in.woocommerce-account .woocommerce,
   .woocommerce-checkout .col2-set,
   .single-product div.product {
     grid-template-columns: 1fr;
@@ -1613,8 +1805,8 @@ p.no-comments {
 
   .woocommerce .storefront-sorting,
   .woocommerce-page .storefront-sorting,
-  .woocommerce-account .woocommerce-MyAccount-content,
-  .woocommerce-account .woocommerce-MyAccount-navigation {
+  .logged-in.woocommerce-account .woocommerce-MyAccount-content,
+  .logged-in.woocommerce-account .woocommerce-MyAccount-navigation {
     padding: 1rem;
   }
 
@@ -1636,6 +1828,14 @@ p.no-comments {
   .woocommerce .woocommerce-ordering select,
   .woocommerce-page .woocommerce-ordering select {
     width: 100%;
+  }
+
+  .babybloom-auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .babybloom-auth-intro h2 {
+    max-width: 12ch;
   }
 }
 
@@ -1716,6 +1916,13 @@ p.no-comments {
     min-height: 0;
     font-size: 1.1rem;
   }
+
+  .woocommerce-account:not(.logged-in) .woocommerce form.login,
+  .woocommerce-account:not(.logged-in) .woocommerce form.register,
+  .babybloom-auth-intro,
+  .babybloom-auth-panel {
+    padding: 1.05rem;
+  }
 }
 
 @media (max-width: 520px) {
@@ -1789,8 +1996,8 @@ p.no-comments {
   .woocommerce-checkout .col2-set,
   .woocommerce-checkout #order_review_heading,
   .woocommerce-checkout #order_review,
-  .woocommerce-account .woocommerce-MyAccount-navigation,
-  .woocommerce-account .woocommerce-MyAccount-content {
+  .logged-in.woocommerce-account .woocommerce-MyAccount-navigation,
+  .logged-in.woocommerce-account .woocommerce-MyAccount-content {
     padding: 1rem;
     border-radius: 22px;
   }
@@ -1819,5 +2026,14 @@ p.no-comments {
   .woocommerce-page .page-title,
   .woocommerce div.product .product_title {
     font-size: clamp(1.75rem, 9vw, 2.35rem);
+  }
+
+  .babybloom-auth-benefit {
+    grid-template-columns: 1fr;
+  }
+
+  .babybloom-auth-benefit__icon {
+    width: 42px;
+    height: 42px;
   }
 }
