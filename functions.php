@@ -417,6 +417,21 @@ function babybloom_loop_columns() {
 add_filter( 'loop_shop_columns', 'babybloom_loop_columns' );
 
 /**
+ * Hide the default WooCommerce page title on the shop archive.
+ *
+ * @param bool $show_title Whether the title should be shown.
+ * @return bool
+ */
+function babybloom_show_woocommerce_page_title( $show_title ) {
+	if ( function_exists( 'is_shop' ) && is_shop() ) {
+		return false;
+	}
+
+	return $show_title;
+}
+add_filter( 'woocommerce_show_page_title', 'babybloom_show_woocommerce_page_title' );
+
+/**
  * Add helper classes to WooCommerce products for placeholder styling.
  *
  * @param array        $classes Existing classes.
