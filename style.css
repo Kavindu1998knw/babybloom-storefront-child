@@ -1422,7 +1422,13 @@ button {
 }
 
 .woocommerce-account .woocommerce {
-  margin: 0;
+  width: min(100%, 1100px);
+  margin: 0 auto;
+}
+
+.woocommerce-account .woocommerce-notices-wrapper {
+  width: min(100%, 1100px);
+  margin: 0 auto 1rem;
 }
 
 .woocommerce-account:not(.logged-in) .woocommerce-notices-wrapper {
