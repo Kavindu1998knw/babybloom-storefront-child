@@ -153,8 +153,30 @@ function babybloom_get_shop_url() {
  * @return string
  */
 function babybloom_get_account_url() {
-	if ( function_exists( 'wc_get_page_permalink' ) ) {
-		return wc_get_page_permalink( 'myaccount' );
+	if ( function_exists( 'wc_get_page_id' ) ) {
+		$account_page_id = (int) wc_get_page_id( 'myaccount' );
+
+		if ( $account_page_id > 0 && 'publish' === get_post_status( $account_page_id ) ) {
+			$account_url = get_permalink( $account_page_id );
+
+			if ( $account_url ) {
+				return $account_url;
+			}
+		}
+	}
+
+	$fallback_paths = array( 'my-account', 'myaccount', 'account' );
+
+	foreach ( $fallback_paths as $path ) {
+		$page = get_page_by_path( $path );
+
+		if ( $page instanceof WP_Post && 'publish' === get_post_status( $page ) ) {
+			$page_url = get_permalink( $page );
+
+			if ( $page_url ) {
+				return $page_url;
+			}
+		}
 	}
 
 	return wp_login_url();
@@ -192,6 +214,50 @@ function babybloom_get_page_url_by_path( $path, $fallback = '' ) {
 
 	return $fallback ? $fallback : home_url( '/' . trim( $path, '/' ) . '/' );
 }
+
+/**
+ * Ensure WooCommerce has a published My Account page.
+ */
+function babybloom_ensure_my_account_page() {
+	if ( ! function_exists( 'wc_get_page_id' ) ) {
+		return;
+	}
+
+	$account_page_id = (int) wc_get_page_id( 'myaccount' );
+
+	if ( $account_page_id > 0 && 'publish' === get_post_status( $account_page_id ) ) {
+		return;
+	}
+
+	$candidate_paths = array( 'my-account', 'myaccount', 'account' );
+
+	foreach ( $candidate_paths as $path ) {
+		$page = get_page_by_path( $path );
+
+		if ( $page instanceof WP_Post && 'publish' === get_post_status( $page ) ) {
+			update_option( 'woocommerce_myaccount_page_id', (int) $page->ID );
+			flush_rewrite_rules( false );
+			return;
+		}
+	}
+
+	$new_page_id = wp_insert_post(
+		array(
+			'post_title'   => __( 'My Account', 'babybloom' ),
+			'post_name'    => 'my-account',
+			'post_content' => '[woocommerce_my_account]',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+		),
+		true
+	);
+
+	if ( ! is_wp_error( $new_page_id ) && $new_page_id ) {
+		update_option( 'woocommerce_myaccount_page_id', (int) $new_page_id );
+		flush_rewrite_rules( false );
+	}
+}
+add_action( 'init', 'babybloom_ensure_my_account_page', 30 );
 
 /**
  * Return the theme's WooCommerce placeholder image URL.
