@@ -976,6 +976,36 @@ button {
   box-shadow: var(--bb-shadow-soft);
 }
 
+.post-type-archive-product .woocommerce-products-header {
+  display: none;
+}
+
+.post-type-archive-product .site-main,
+.post-type-archive-product .content-area {
+  padding-top: 1rem;
+}
+
+.post-type-archive-product .storefront-sorting,
+.post-type-archive-product .woocommerce .storefront-sorting,
+.post-type-archive-product .woocommerce-page .storefront-sorting {
+  max-width: 820px;
+  margin: 0 auto 1.6rem;
+  justify-content: center;
+  gap: 1rem 2rem;
+}
+
+.post-type-archive-product .woocommerce .woocommerce-ordering,
+.post-type-archive-product .woocommerce-page .woocommerce-ordering {
+  display: flex;
+  justify-content: center;
+}
+
+.post-type-archive-product .woocommerce .woocommerce-result-count,
+.post-type-archive-product .woocommerce-page .woocommerce-result-count {
+  min-width: 180px;
+  text-align: center;
+}
+
 .woocommerce .storefront-sorting select,
 .woocommerce-page .storefront-sorting select,
 .woocommerce .woocommerce-ordering select,
