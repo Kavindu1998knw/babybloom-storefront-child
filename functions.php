@@ -117,6 +117,8 @@ function babybloom_cleanup_storefront() {
 	remove_action( 'storefront_header', 'storefront_primary_navigation_wrapper_close', 68 );
 	remove_action( 'storefront_footer', 'storefront_footer_widgets', 10 );
 	remove_action( 'storefront_footer', 'storefront_credit', 20 );
+	remove_action( 'storefront_sidebar', 'storefront_get_sidebar', 10 );
+	remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 }
 add_action( 'init', 'babybloom_cleanup_storefront' );
 
@@ -417,6 +419,21 @@ function babybloom_loop_columns() {
 add_filter( 'loop_shop_columns', 'babybloom_loop_columns' );
 
 /**
+ * Standardize archive thumbnail sizing for new WooCommerce crops.
+ *
+ * @param array $size Current image size settings.
+ * @return array
+ */
+function babybloom_product_thumbnail_size( $size ) {
+	return array(
+		'width'  => 720,
+		'height' => 720,
+		'crop'   => 1,
+	);
+}
+add_filter( 'woocommerce_get_image_size_thumbnail', 'babybloom_product_thumbnail_size' );
+
+/**
  * Hide the default WooCommerce page title on the shop archive.
  *
  * @param bool $show_title Whether the title should be shown.
@@ -461,6 +478,23 @@ function babybloom_product_placeholder() {
 	return babybloom_get_product_placeholder_url();
 }
 add_filter( 'woocommerce_placeholder_img_src', 'babybloom_product_placeholder' );
+
+/**
+ * Use a softer WooCommerce sale badge label.
+ *
+ * @param string     $html    Existing sale badge markup.
+ * @param WP_Post    $post    Current post object.
+ * @param WC_Product $product Current product object.
+ * @return string
+ */
+function babybloom_sale_flash_markup( $html, $post, $product ) {
+	if ( ! $product instanceof WC_Product || ! $product->is_on_sale() ) {
+		return $html;
+	}
+
+	return '<span class="onsale">' . esc_html__( 'Sale', 'babybloom' ) . '</span>';
+}
+add_filter( 'woocommerce_sale_flash', 'babybloom_sale_flash_markup', 10, 3 );
 
 /**
  * Refresh the header cart count when WooCommerce updates cart fragments.
