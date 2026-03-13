@@ -290,6 +290,35 @@ function babybloom_ensure_my_account_page() {
 add_action( 'init', 'babybloom_ensure_my_account_page', 30 );
 
 /**
+ * Enable My Account registration once so WooCommerce renders the register form.
+ *
+ * This keeps WooCommerce's standard authentication flow intact while repairing
+ * the missing registration UI on existing installs.
+ */
+function babybloom_maybe_enable_myaccount_registration() {
+	if ( ! function_exists( 'wc_get_page_id' ) ) {
+		return;
+	}
+
+	$sync_option = 'babybloom_myaccount_registration_synced';
+
+	if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration', 'no' ) ) {
+		if ( 'yes' !== get_option( $sync_option, 'no' ) ) {
+			update_option( $sync_option, 'yes' );
+		}
+		return;
+	}
+
+	if ( 'yes' === get_option( $sync_option, 'no' ) ) {
+		return;
+	}
+
+	update_option( 'woocommerce_enable_myaccount_registration', 'yes' );
+	update_option( $sync_option, 'yes' );
+}
+add_action( 'init', 'babybloom_maybe_enable_myaccount_registration', 35 );
+
+/**
  * Return the theme's WooCommerce placeholder image URL.
  *
  * @return string
