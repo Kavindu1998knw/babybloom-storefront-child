@@ -30,8 +30,8 @@ Text Domain: babybloom
   --bb-radius-lg: 34px;
   --bb-radius-md: 26px;
   --bb-radius-sm: 20px;
-  --bb-container: 1240px;
-  --bb-shop-container: 1340px;
+  --bb-container: 1280px;
+  --bb-shop-container: 1420px;
   --bb-section-space: clamp(2.4rem, 4vw, 4.2rem);
   --bb-transition: 220ms ease;
 }
@@ -100,7 +100,7 @@ button {
 }
 
 .babybloom-container {
-  width: min(calc(100% - 2rem), var(--bb-container));
+  width: min(calc(100% - clamp(1.5rem, 3vw, 2.75rem)), var(--bb-container));
   margin: 0 auto;
 }
 
@@ -817,7 +817,7 @@ button {
 
 .babybloom-footer {
   margin-top: auto;
-  padding: 0 0 2rem;
+  padding: 0.5rem 0 1.5rem;
 }
 
 .babybloom-footer__shell {
@@ -908,7 +908,7 @@ button {
 .search .site-content .col-full,
 .woocommerce-page .site-content .col-full,
 .single-product .site-content .col-full {
-  width: min(calc(100% - 2rem), var(--bb-container));
+  width: min(calc(100% - clamp(1.5rem, 3vw, 2.75rem)), var(--bb-container));
   margin: 0 auto;
   padding: 0;
 }
@@ -937,7 +937,7 @@ button {
 .search .site-main,
 .woocommerce-page .site-main,
 .single-product .site-main {
-  padding: 2rem 0 3rem;
+  padding: clamp(1.5rem, 2.8vw, 2.25rem) 0 2rem;
 }
 
 .page:not(.home) .widget-area,
@@ -957,6 +957,14 @@ button {
 .woocommerce .page-title,
 .woocommerce-page .page-title {
   margin-bottom: 1.6rem;
+}
+
+.page:not(.home):not(.woocommerce-page) .entry-header,
+.page:not(.home):not(.woocommerce-page) .entry-content,
+.page:not(.home):not(.woocommerce-page) .entry-summary {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page:not(.home) .entry-title,
@@ -984,7 +992,7 @@ button {
 .post-type-archive-product .site-content .col-full,
 .tax-product_cat .site-content .col-full,
 .tax-product_tag .site-content .col-full {
-  width: min(calc(100% - 2rem), var(--bb-shop-container));
+  width: min(calc(100% - clamp(1.5rem, 3vw, 2.75rem)), var(--bb-shop-container));
   margin: 0 auto;
   padding: 0;
 }
@@ -1956,7 +1964,7 @@ p.no-comments {
   .woocommerce-page .site-main,
   .woocommerce-page .content-area,
   .single-product .site-main {
-    padding: 1.4rem 0 2rem;
+    padding: 1.25rem 0 1.5rem;
   }
 
   .babybloom-logo__tagline {
