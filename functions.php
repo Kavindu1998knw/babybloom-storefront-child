@@ -461,6 +461,10 @@ function babybloom_body_classes( $classes ) {
 		$classes[] = 'babybloom-front-page';
 	}
 
+	if ( is_page( 'sale' ) ) {
+		$classes[] = 'babybloom-sale-page';
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'babybloom_body_classes' );

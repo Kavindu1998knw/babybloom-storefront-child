@@ -1115,7 +1115,9 @@ button {
 .tax-product_cat .woocommerce ul.products,
 .tax-product_cat .woocommerce-page ul.products,
 .tax-product_tag .woocommerce ul.products,
-.tax-product_tag .woocommerce-page ul.products {
+.tax-product_tag .woocommerce-page ul.products,
+.babybloom-sale-page .woocommerce ul.products,
+.babybloom-sale-page .woocommerce-page ul.products {
   grid-template-columns: repeat(auto-fit, minmax(250px, 300px)) !important;
   justify-content: center;
 }
@@ -1165,7 +1167,9 @@ button {
 .tax-product_cat .woocommerce ul.products li.product,
 .tax-product_cat .woocommerce-page ul.products li.product,
 .tax-product_tag .woocommerce ul.products li.product,
-.tax-product_tag .woocommerce-page ul.products li.product {
+.tax-product_tag .woocommerce-page ul.products li.product,
+.babybloom-sale-page .woocommerce ul.products li.product,
+.babybloom-sale-page .woocommerce-page ul.products li.product {
   max-width: 300px !important;
   margin-inline: auto !important;
 }
@@ -1721,7 +1725,9 @@ p.no-comments {
   .tax-product_cat .woocommerce ul.products,
   .tax-product_cat .woocommerce-page ul.products,
   .tax-product_tag .woocommerce ul.products,
-  .tax-product_tag .woocommerce-page ul.products {
+  .tax-product_tag .woocommerce-page ul.products,
+  .babybloom-sale-page .woocommerce ul.products,
+  .babybloom-sale-page .woocommerce-page ul.products {
     grid-template-columns: repeat(auto-fit, minmax(240px, 290px)) !important;
   }
 }
@@ -1777,7 +1783,9 @@ p.no-comments {
   .tax-product_cat .woocommerce ul.products,
   .tax-product_cat .woocommerce-page ul.products,
   .tax-product_tag .woocommerce ul.products,
-  .tax-product_tag .woocommerce-page ul.products {
+  .tax-product_tag .woocommerce-page ul.products,
+  .babybloom-sale-page .woocommerce ul.products,
+  .babybloom-sale-page .woocommerce-page ul.products {
     grid-template-columns: repeat(auto-fit, minmax(240px, 280px)) !important;
   }
 }
