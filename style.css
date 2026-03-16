@@ -1110,6 +1110,16 @@ button {
   align-items: stretch !important;
 }
 
+.post-type-archive-product .woocommerce ul.products,
+.post-type-archive-product .woocommerce-page ul.products,
+.tax-product_cat .woocommerce ul.products,
+.tax-product_cat .woocommerce-page ul.products,
+.tax-product_tag .woocommerce ul.products,
+.tax-product_tag .woocommerce-page ul.products {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px)) !important;
+  justify-content: center;
+}
+
 .woocommerce ul.products::before,
 .woocommerce ul.products::after {
   display: none;
@@ -1148,6 +1158,16 @@ button {
   flex-direction: column;
   min-height: 100%;
   transition: transform var(--bb-transition), box-shadow var(--bb-transition), border-color var(--bb-transition);
+}
+
+.post-type-archive-product .woocommerce ul.products li.product,
+.post-type-archive-product .woocommerce-page ul.products li.product,
+.tax-product_cat .woocommerce ul.products li.product,
+.tax-product_cat .woocommerce-page ul.products li.product,
+.tax-product_tag .woocommerce ul.products li.product,
+.tax-product_tag .woocommerce-page ul.products li.product {
+  max-width: 300px !important;
+  margin-inline: auto !important;
 }
 
 .woocommerce ul.products li.product:hover,
@@ -1695,6 +1715,15 @@ p.no-comments {
   .woocommerce-page ul.products {
     grid-template-columns: repeat(3, minmax(220px, 1fr)) !important;
   }
+
+  .post-type-archive-product .woocommerce ul.products,
+  .post-type-archive-product .woocommerce-page ul.products,
+  .tax-product_cat .woocommerce ul.products,
+  .tax-product_cat .woocommerce-page ul.products,
+  .tax-product_tag .woocommerce ul.products,
+  .tax-product_tag .woocommerce-page ul.products {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 290px)) !important;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -1741,6 +1770,15 @@ p.no-comments {
   .woocommerce ul.products,
   .woocommerce-page ul.products {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .post-type-archive-product .woocommerce ul.products,
+  .post-type-archive-product .woocommerce-page ul.products,
+  .tax-product_cat .woocommerce ul.products,
+  .tax-product_cat .woocommerce-page ul.products,
+  .tax-product_tag .woocommerce ul.products,
+  .tax-product_tag .woocommerce-page ul.products {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 280px)) !important;
   }
 }
 
