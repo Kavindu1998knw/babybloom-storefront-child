@@ -32,6 +32,8 @@ Text Domain: babybloom
   --bb-radius-sm: 20px;
   --bb-container: 1280px;
   --bb-shop-container: 1420px;
+  --bb-page-gutter: clamp(1.5rem, 3vw, 2.75rem);
+  --bb-page-gutter-mobile: 1.25rem;
   --bb-section-space: clamp(2.4rem, 4vw, 4.2rem);
   --bb-transition: 220ms ease;
 }
@@ -100,7 +102,7 @@ button {
 }
 
 .babybloom-container {
-  width: min(calc(100% - clamp(1.5rem, 3vw, 2.75rem)), var(--bb-container));
+  width: min(calc(100% - var(--bb-page-gutter)), var(--bb-container));
   margin: 0 auto;
 }
 
@@ -908,7 +910,7 @@ button {
 .search .site-content .col-full,
 .woocommerce-page .site-content .col-full,
 .single-product .site-content .col-full {
-  width: min(calc(100% - clamp(1.5rem, 3vw, 2.75rem)), var(--bb-container));
+  width: min(calc(100% - var(--bb-page-gutter)), var(--bb-container));
   margin: 0 auto;
   padding: 0;
 }
@@ -967,6 +969,12 @@ button {
   margin-right: auto;
 }
 
+.babybloom-sale-page .entry-header,
+.babybloom-sale-page .entry-content,
+.babybloom-sale-page .entry-summary {
+  max-width: none;
+}
+
 .page:not(.home) .entry-title,
 .woocommerce-products-header__title.page-title,
 .woocommerce-page .page-title {
@@ -992,7 +1000,7 @@ button {
 .post-type-archive-product .site-content .col-full,
 .tax-product_cat .site-content .col-full,
 .tax-product_tag .site-content .col-full {
-  width: min(calc(100% - clamp(1.5rem, 3vw, 2.75rem)), var(--bb-shop-container));
+  width: min(calc(100% - var(--bb-page-gutter)), var(--bb-container));
   margin: 0 auto;
   padding: 0;
 }
@@ -1445,14 +1453,15 @@ button {
   box-shadow: none;
 }
 
-.woocommerce-account .woocommerce {
-  width: min(100%, 1100px);
-  margin: 0 auto;
+.woocommerce-account .woocommerce,
+.woocommerce-account .woocommerce-notices-wrapper {
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .woocommerce-account .woocommerce-notices-wrapper {
-  width: min(100%, 1100px);
-  margin: 0 auto 1rem;
+  margin-bottom: 1rem;
 }
 
 .woocommerce-account:not(.logged-in) .woocommerce-notices-wrapper {
@@ -2000,13 +2009,13 @@ p.no-comments {
   .search .site-content .col-full,
   .woocommerce-page .site-content .col-full,
   .single-product .site-content .col-full {
-    width: min(calc(100% - 1.25rem), var(--bb-container));
+    width: min(calc(100% - var(--bb-page-gutter-mobile)), var(--bb-container));
   }
 
   .post-type-archive-product .site-content .col-full,
   .tax-product_cat .site-content .col-full,
   .tax-product_tag .site-content .col-full {
-    width: min(calc(100% - 1.25rem), var(--bb-shop-container));
+    width: min(calc(100% - var(--bb-page-gutter-mobile)), var(--bb-container));
   }
 
   .page:not(.home) .site-main,
