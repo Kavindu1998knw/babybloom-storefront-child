@@ -8,6 +8,26 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$footer_email_default   = 'support@babybloomonline.com';
+$footer_phone_default   = '+94 11 745 7450';
+$footer_address_default = __( 'BabyBloom Online Support, Colombo, Sri Lanka', 'babybloom' );
+
+$footer_email   = babybloom_get_setting( 'footer_email', $footer_email_default );
+$footer_phone   = babybloom_get_setting( 'footer_phone', $footer_phone_default );
+$footer_address = babybloom_get_setting( 'footer_address', $footer_address_default );
+
+if ( 'hello@babybloom.com' === $footer_email ) {
+	$footer_email = $footer_email_default;
+}
+
+if ( '+1 (800) 555-0188' === $footer_phone ) {
+	$footer_phone = $footer_phone_default;
+}
+
+if ( '123 BabyBloom Lane, Suite 4, Your City, State' === $footer_address ) {
+	$footer_address = $footer_address_default;
+}
 ?>
 	</div>
 
@@ -50,9 +70,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div>
 					<h3 class="babybloom-footer__heading"><?php esc_html_e( 'Contact', 'babybloom' ); ?></h3>
 					<ul class="babybloom-footer__contact">
-						<li><a href="mailto:<?php echo esc_attr( babybloom_get_setting( 'footer_email', 'hello@babybloom.com' ) ); ?>"><?php echo esc_html( babybloom_get_setting( 'footer_email', 'hello@babybloom.com' ) ); ?></a></li>
-						<li><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', babybloom_get_setting( 'footer_phone', '+1 (800) 555-0188' ) ) ); ?>"><?php echo esc_html( babybloom_get_setting( 'footer_phone', '+1 (800) 555-0188' ) ); ?></a></li>
-						<li><?php echo wp_kses_post( nl2br( esc_html( babybloom_get_setting( 'footer_address', '123 BabyBloom Lane, Suite 4, Your City, State' ) ) ) ); ?></li>
+						<li><a href="mailto:<?php echo esc_attr( $footer_email ); ?>"><?php echo esc_html( $footer_email ); ?></a></li>
+						<li><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $footer_phone ) ); ?>"><?php echo esc_html( $footer_phone ); ?></a></li>
+						<li><?php echo wp_kses_post( nl2br( esc_html( $footer_address ) ) ); ?></li>
 					</ul>
 				</div>
 			</div>

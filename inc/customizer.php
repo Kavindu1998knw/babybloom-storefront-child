@@ -88,17 +88,17 @@ function babybloom_customize_register( $wp_customize ) {
 		'footer_email'       => array(
 			'label'   => __( 'Footer Email', 'babybloom' ),
 			'type'    => 'text',
-			'default' => 'hello@babybloom.com',
+			'default' => 'support@babybloomonline.com',
 		),
 		'footer_phone'       => array(
 			'label'   => __( 'Footer Phone', 'babybloom' ),
 			'type'    => 'text',
-			'default' => '+1 (800) 555-0188',
+			'default' => '+94 11 745 7450',
 		),
 		'footer_address'     => array(
 			'label'   => __( 'Footer Address', 'babybloom' ),
 			'type'    => 'textarea',
-			'default' => __( '123 BabyBloom Lane, Suite 4, Your City, State', 'babybloom' ),
+			'default' => __( 'BabyBloom Online Support, Colombo, Sri Lanka', 'babybloom' ),
 		),
 	);
 
