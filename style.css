@@ -1670,11 +1670,154 @@ button {
 .woocommerce-account:not(.logged-in) .woocommerce form.register {
   height: 100%;
   margin: 0;
-  padding: 1.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-panel {
+  padding: clamp(1.1rem, 2.2vw, 1.45rem);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-forms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-forms.is-login-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 100%;
+  padding: 1.3rem;
   border: 1px solid rgba(83, 70, 69, 0.08);
-  border-radius: calc(var(--bb-radius-md) + 2px);
+  border-radius: calc(var(--bb-radius-md) + 4px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.82));
+  box-shadow: var(--bb-shadow-soft);
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__header {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(246, 217, 219, 0.72);
+  color: #b86d69;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__header h3 {
+  margin: 0;
+  color: var(--bb-heading);
+  font-family: "Outfit", "Trebuchet MS", sans-serif;
+  font-size: 1.7rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__header p,
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__hint {
+  margin: 0;
+  color: var(--bb-text-soft);
+  font-size: 0.96rem;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__trust {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.35rem 0 0.1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(242, 217, 220, 0.24), rgba(220, 235, 227, 0.28));
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__trust-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  color: var(--bb-heading);
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__trust-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.76);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__remember-row,
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__submit-row {
+  margin-bottom: 0;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-auth-form-card__submit-row .button {
+  min-height: 54px;
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 18px 32px rgba(233, 180, 173, 0.22);
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form .show-password-input,
+.woocommerce-account:not(.logged-in) .woocommerce form .password-input {
+  width: 100%;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form label {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-form-login__rememberme {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--bb-text-soft);
+  font-size: 0.94rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-form-login__rememberme input {
+  margin-top: 0.2rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce-LostPassword,
+.woocommerce-account:not(.logged-in) .lost_password {
+  margin-top: 0.15rem;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce form .form-row {
+  margin-bottom: 1rem;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-footer {
+  padding-top: 0;
+}
+
+.woocommerce-account:not(.logged-in) .babybloom-footer__shell {
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: none;
 }
 
 .woocommerce-account:not(.logged-in) .woocommerce form.login > h2,
@@ -2079,6 +2222,19 @@ p.no-comments {
   }
 
   .babybloom-auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .woocommerce-account:not(.logged-in) .babybloom-auth-forms,
+  .woocommerce-account:not(.logged-in) .babybloom-auth-forms.is-login-only {
+    grid-template-columns: 1fr;
+  }
+
+  .woocommerce-account:not(.logged-in) .babybloom-auth-form-card {
+    padding: 1.15rem;
+  }
+
+  .woocommerce-account:not(.logged-in) .babybloom-auth-form-card__trust-item {
     grid-template-columns: 1fr;
   }
 
