@@ -975,6 +975,7 @@ button {
   max-width: none;
 }
 
+
 .page:not(.home) .entry-title,
 .woocommerce-products-header__title.page-title,
 .woocommerce-page .page-title {
@@ -996,10 +997,24 @@ button {
   margin-top: 0;
 }
 
+.page.babybloom-sale-page .entry-header {
+  width: min(calc(100% - var(--bb-page-gutter)), var(--bb-container));
+  margin: 0 auto 1.6rem;
+}
+
+.page.babybloom-sale-page .entry-content,
+.page.babybloom-sale-page .entry-summary {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
 
 .post-type-archive-product .site-content .col-full,
 .tax-product_cat .site-content .col-full,
-.tax-product_tag .site-content .col-full {
+.tax-product_tag .site-content .col-full,
+.babybloom-sale-page .site-content .col-full {
   width: min(calc(100% - var(--bb-page-gutter)), var(--bb-container));
   margin: 0 auto;
   padding: 0;
@@ -1008,9 +1023,11 @@ button {
 .post-type-archive-product .content-area,
 .tax-product_cat .content-area,
 .tax-product_tag .content-area,
+.babybloom-sale-page .content-area,
 .post-type-archive-product .site-main,
 .tax-product_cat .site-main,
-.tax-product_tag .site-main {
+.tax-product_tag .site-main,
+.babybloom-sale-page .site-main {
   float: none !important;
   width: 100% !important;
   max-width: none;
@@ -1019,7 +1036,8 @@ button {
 
 .post-type-archive-product .widget-area,
 .tax-product_cat .widget-area,
-.tax-product_tag .widget-area {
+.tax-product_tag .widget-area,
+.babybloom-sale-page .widget-area {
   display: none !important;
 }
 

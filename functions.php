@@ -449,6 +449,218 @@ function babybloom_get_home_categories() {
 }
 
 /**
+ * Return the current catalog page number.
+ *
+ * @return int
+ */
+function babybloom_get_catalog_current_page() {
+	return max(
+		1,
+		absint( get_query_var( 'paged' ) ),
+		absint( get_query_var( 'page' ) )
+	);
+}
+
+/**
+ * Return the products per page value used by catalog views.
+ *
+ * @return int
+ */
+function babybloom_get_catalog_products_per_page() {
+	$default = absint( get_option( 'posts_per_page', 12 ) );
+
+	return max( 1, (int) apply_filters( 'loop_shop_per_page', $default ) );
+}
+
+/**
+ * Build product query arguments that match WooCommerce catalog ordering.
+ *
+ * @param array $overrides Optional query overrides.
+ * @return array
+ */
+function babybloom_get_catalog_query_args( $overrides = array() ) {
+	$query_args = array(
+		'post_type'           => 'product',
+		'post_status'         => 'publish',
+		'ignore_sticky_posts' => 1,
+		'posts_per_page'      => babybloom_get_catalog_products_per_page(),
+		'paged'               => babybloom_get_catalog_current_page(),
+	);
+
+	if ( function_exists( 'WC' ) && WC()->query ) {
+		$default_orderby = apply_filters(
+			'woocommerce_default_catalog_orderby',
+			get_option( 'woocommerce_default_catalog_orderby', 'menu_order' )
+		);
+		$orderby_value   = isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : $default_orderby;
+		$ordering_args   = WC()->query->get_catalog_ordering_args( $orderby_value, '' );
+
+		if ( ! empty( $ordering_args['orderby'] ) ) {
+			$query_args['orderby'] = $ordering_args['orderby'];
+		}
+
+		if ( ! empty( $ordering_args['order'] ) ) {
+			$query_args['order'] = $ordering_args['order'];
+		}
+
+		if ( ! empty( $ordering_args['meta_key'] ) ) {
+			$query_args['meta_key'] = $ordering_args['meta_key'];
+		}
+
+		$query_args['meta_query'] = WC()->query->get_meta_query();
+		$query_args['tax_query']  = WC()->query->get_tax_query();
+	}
+
+	return wp_parse_args( $overrides, $query_args );
+}
+
+/**
+ * Build the on-sale product query used by the Sale page.
+ *
+ * @return WP_Query|null
+ */
+function babybloom_get_sale_catalog_query() {
+	if ( ! function_exists( 'wc_get_product_ids_on_sale' ) ) {
+		return null;
+	}
+
+	$product_ids = array_map( 'absint', wc_get_product_ids_on_sale() );
+
+	if ( empty( $product_ids ) ) {
+		$product_ids = array( 0 );
+	}
+
+	return new WP_Query(
+		babybloom_get_catalog_query_args(
+			array(
+				'post__in' => $product_ids,
+			)
+		)
+	);
+}
+
+/**
+ * Return the shared BabyBloom product catalog markup.
+ *
+ * @param WP_Query|null $query Product query to render. Defaults to the current query.
+ * @param array         $args  Optional render arguments.
+ * @return string
+ */
+function babybloom_get_product_catalog_markup( $query = null, $args = array() ) {
+	if ( ! function_exists( 'woocommerce_product_loop_start' ) || ! function_exists( 'wc_setup_loop' ) ) {
+		return '';
+	}
+
+	$catalog_query = $query instanceof WP_Query ? $query : $GLOBALS['wp_query'];
+
+	if ( ! $catalog_query instanceof WP_Query ) {
+		return '';
+	}
+
+	$args = wp_parse_args(
+		$args,
+		array(
+			'aria_label'  => __( 'Product catalog', 'babybloom' ),
+			'header_html' => '',
+		)
+	);
+
+	$previous_query     = $GLOBALS['wp_query'];
+	$using_custom_query = $query instanceof WP_Query;
+
+	if ( $using_custom_query ) {
+		$GLOBALS['wp_query'] = $catalog_query;
+	}
+
+	wc_setup_loop(
+		array(
+			'total'        => (int) $catalog_query->found_posts,
+			'total_pages'  => max( 1, (int) $catalog_query->max_num_pages ),
+			'per_page'     => max( 1, (int) $catalog_query->get( 'posts_per_page' ) ),
+			'current_page' => babybloom_get_catalog_current_page(),
+			'is_paginated' => $catalog_query->max_num_pages > 1,
+			'columns'      => (int) apply_filters( 'loop_shop_columns', 4 ),
+		)
+	);
+
+	ob_start();
+	?>
+	<section class="babybloom-shop-archive" aria-label="<?php echo esc_attr( $args['aria_label'] ); ?>">
+		<div class="babybloom-container babybloom-shop-archive__inner">
+			<?php echo $args['header_html']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+
+			<div class="woocommerce">
+				<?php if ( function_exists( 'woocommerce_output_all_notices' ) ) : ?>
+					<?php woocommerce_output_all_notices(); ?>
+				<?php endif; ?>
+
+				<?php if ( $catalog_query->have_posts() ) : ?>
+					<div class="babybloom-shop-archive__toolbar" aria-label="<?php esc_attr_e( 'Catalog controls', 'babybloom' ); ?>">
+						<div class="babybloom-shop-archive__result">
+							<?php woocommerce_result_count(); ?>
+						</div>
+						<div class="babybloom-shop-archive__ordering">
+							<?php woocommerce_catalog_ordering(); ?>
+						</div>
+					</div>
+
+					<?php woocommerce_product_loop_start(); ?>
+						<?php while ( $catalog_query->have_posts() ) : ?>
+							<?php $catalog_query->the_post(); ?>
+							<?php do_action( 'woocommerce_shop_loop' ); ?>
+							<?php wc_get_template_part( 'content', 'product' ); ?>
+						<?php endwhile; ?>
+					<?php woocommerce_product_loop_end(); ?>
+
+					<div class="babybloom-shop-archive__pagination">
+						<?php woocommerce_pagination(); ?>
+					</div>
+				<?php else : ?>
+					<?php do_action( 'woocommerce_no_products_found' ); ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</section>
+	<?php
+	$markup = ob_get_clean();
+
+	wc_reset_loop();
+
+	if ( $using_custom_query ) {
+		$GLOBALS['wp_query'] = $previous_query;
+		wp_reset_postdata();
+	}
+
+	return $markup;
+}
+
+/**
+ * Replace the Sale page content with the shared branded product catalog.
+ *
+ * @param string $content Original page content.
+ * @return string
+ */
+function babybloom_render_sale_page_content( $content ) {
+	if ( is_admin() || ! is_page( 'sale' ) || ! is_main_query() || ! in_the_loop() ) {
+		return $content;
+	}
+
+	$sale_query = babybloom_get_sale_catalog_query();
+
+	if ( ! $sale_query instanceof WP_Query ) {
+		return $content;
+	}
+
+	return babybloom_get_product_catalog_markup(
+		$sale_query,
+		array(
+			'aria_label' => __( 'Sale products', 'babybloom' ),
+		)
+	);
+}
+add_filter( 'the_content', 'babybloom_render_sale_page_content' );
+
+/**
  * Add body classes.
  *
  * @param array $classes Existing body classes.
@@ -463,6 +675,8 @@ function babybloom_body_classes( $classes ) {
 
 	if ( is_page( 'sale' ) ) {
 		$classes[] = 'babybloom-sale-page';
+		$classes[] = 'woocommerce';
+		$classes[] = 'woocommerce-page';
 	}
 
 	return $classes;
